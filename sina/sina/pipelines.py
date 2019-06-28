@@ -46,9 +46,10 @@ class SinaPipeline(object):
         # 获取item中的数据
         title = item.get('title')
         data_time = item.get('data_time')
+        new_url = item.get('new_url')
 
         # 书写sql语句
-        sql = 'insert into news(title, data_time) values("%s","%s")'% (title, data_time)
+        sql = 'insert into news(title, data_time, new_url) values("%s","%s", "%s")' % (title, data_time, new_url)
         self.cursor.execute(sql)
         self.db.commit()
         return item

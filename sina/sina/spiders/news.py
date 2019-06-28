@@ -27,14 +27,14 @@ class NewsSpider(RedisCrawlSpider):
     )
 
     def parse_item(self, response):
-    # def parse(self, response):
         news_list = response.xpath('//ul[@class="list_009"]/li')
         for news in news_list:
             title = news.xpath('./a/text()').extract_first()
             data_time = news.xpath('./span/text()').extract_first()
-            # print(title, data_time)
+            new_url = news.xpath('./a/@href').extract_first()
 
             item = SinaItem()
             item['title'] = title
             item['data_time'] = data_time
+            item['new_url'] = new_url
             yield item

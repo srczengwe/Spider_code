@@ -9,7 +9,6 @@ import scrapy
 
 
 class SinaItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    title = scrapy.Field()
-    data_time = scrapy.Field()
+    title = scrapy.Field()       # 新闻标题
+    data_time = scrapy.Field()   # 更新时间
+    new_url = scrapy.Field()     # 新闻链接

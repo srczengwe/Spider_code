@@ -96,7 +96,7 @@ SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
+# REDIS_HOST = 'localhost'
+# REDIS_PORT = 6379
 
-# REDIS_URL = 'redis://:123456@192.168.6.1:6379'
+REDIS_URL = 'redis://:123456@192.168.6.1:6379'
