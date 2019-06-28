@@ -13,8 +13,6 @@ class DiscoverySpider(scrapy.Spider):
 
     # 产品列表
     def parse(self, response):
-        pass
-
         li_list = response.xpath('//ul[@class="video-list"]/li')
         for li in li_list:
             # 作品id
@@ -23,11 +21,10 @@ class DiscoverySpider(scrapy.Spider):
             title = li.xpath('.//div[@class="video-con-top"]/a/p/text()').get()
             # 缩略图
             thumbnail = li.xpath('./a/img/@_src').extract_first()
-            # print(pid, title, thumbnail)
             # 作品分类
             category_list = li.xpath('.//div[@class="new-cate"]/span[@class="fs_12 fw_300 c_b_9"]/text()').extract()
             category = '|'.join([c.strip() for c in category_list])
-           # 发布时间
+            # 发布时间
             created_at = li.xpath('.//div[@class="video-hover-con"]/p/text()').get()
             # 点赞次数
             like_counts = li.xpath('.//span[@class="fw_300 c_b_9 icon-like"]/text()').get()
@@ -55,14 +52,11 @@ class DiscoverySpider(scrapy.Spider):
     def get_post(self, response):
         item = response.meta.get('item')
         pid = item.get('pid')
-
         # 播放次数
         item["play_counts"] = response.xpath('//i[@class="fs_12 fw_300 c_b_6 v-center play-counts"]/@data-curplaycounts').get()
-
         # 视频数据
         vid, = re.findall('vid: \"(.*?)\"', response.text)
         video_url = "https://openapi-vtom.vmovier.com/v3/video/%s?expand=resource,resource_origin?" % vid
-        # print("video_url:", video_url)
         # 获取视频数据
         request = scrapy.Request(url=video_url, callback=self.get_video)
         request.meta['item'] = item
@@ -91,7 +85,6 @@ class DiscoverySpider(scrapy.Spider):
 
         # 评论
         comment_url = "http://www.xinpianchang.com/article/filmplay/ts-getCommentApi?id=%s&ajax=0&page=1" % pid
-        # print("comment_url:", comment_url)
         request3 = scrapy.Request(comment_url, callback=self.get_comment)
         yield request3
 
@@ -150,9 +143,7 @@ class DiscoverySpider(scrapy.Spider):
     # 获取评论
     def get_comment(self, response):
         content = json.loads(response.text)
-        # print(content)
         comment_list = content.get('data').get('list')
-
         for comment in comment_list:
             item = CommentItem()
             item['commentid'] = comment['commentid']
@@ -164,7 +155,6 @@ class DiscoverySpider(scrapy.Spider):
             item['content'] = comment['content']
             item['like_counts'] = comment['count_approve']
             item['reply'] = comment['commentid']
-            # print(item)
 
             yield item
 

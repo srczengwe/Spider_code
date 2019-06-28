@@ -16,11 +16,9 @@ class PostItem(Item):
     pid = Field()  # 作品id
     title = Field()  # 作品title
     thumbnail = Field()  # 视频缩略图
-
     preview = Field()  # 视频预览图
     video = Field()  # 视频链接
     video_format = Field()  # 视频格式：等
-
     category = Field()  # 作品分类
     duration = Field()  # 播放时长
     created_at = Field()  # 发表时间
@@ -38,7 +36,6 @@ class ComposerItem(Item):
     banner = Field()  # 用户主页banner图片
     avatar = Field()  # 用户头像
     verified = Field()  # 是否加V
-
     name = Field()  # 名字
     intro = Field()  # 自我介绍
     like_counts = Field()  # 被点赞次数
@@ -46,6 +43,7 @@ class ComposerItem(Item):
     follow_counts = Field()  # 关注数量
     location = Field()  # 所在位置
     career = Field()  # 职业
+
 
 # 评论
 class CommentItem(Item):
@@ -61,6 +59,7 @@ class CommentItem(Item):
     content = Field()  # 评论内容
     like_counts = Field()  # 被点赞次数
     reply = Field()  # 回复其他评论的ID，如果不是则为0
+
 
 # copyright
 class CopyringhtItem(Item):

@@ -33,7 +33,7 @@ class XpcPipeline(object):
         self.cursor.execute(sql, values*2)
         self.db.commit()
 
-        print('ok')
+        print('存储成功!')
 
         return item
 
